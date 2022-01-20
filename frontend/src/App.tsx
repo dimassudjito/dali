@@ -1,13 +1,22 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route, Link } from 'react-router-dom'
 
-import { Dashboard } from './pages'
-const App = () => {
+import { Dashboard, Sketch } from './pages'
+
+const App: React.FC = () => {
   return (
     <div>
-      <h1>Hello, React Router!</h1>
+      <h1>Dali</h1>
+      <p>
+        <Link to="/">Dashboard</Link>
+      </p>
+      <p>
+        <Link to="/sketch">Sketch</Link>
+      </p>
+
       <Routes>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/sketch" element={<Sketch />} />
       </Routes>
     </div>
   )
