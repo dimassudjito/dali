@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { setConstantValue } from 'typescript'
 
 export const Sketch: React.FC = () => {
   const [isDrawing, setIsDrawing] = useState(false)
-  const [brushSize, setBrushSize] = useState(3)
+  const [brushSize, setBrushSize] = useState(5)
   const [brushColor, setBrushColor] = useState('#000000')
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -77,16 +76,16 @@ export const Sketch: React.FC = () => {
     setBrushColor(newColor)
   }
 
-  // const clearCanvas = () => {
-  //   const canvas = canvasRef.current
-  //   if (canvas) {
-  //     const context = canvas.getContext('2d')
-  //     if (context) {
-  //       context.fillStyle = 'white'
-  //       context.fillRect(0, 0, canvas.width, canvas.height)
-  //     }
-  //   }
-  // }
+  const clearCanvas = () => {
+    const canvas = canvasRef.current
+    if (canvas) {
+      const context = canvas.getContext('2d')
+      if (context) {
+        context.fillStyle = '#ffffff'
+        context.fillRect(0, 0, canvas.width, canvas.height)
+      }
+    }
+  }
 
   useEffect(() => {
     prepareCanvas()
@@ -96,7 +95,8 @@ export const Sketch: React.FC = () => {
     <div>
       <button onClick={decreaseBrushSize}>-</button>
       <button onClick={increaseBrushSize}>+</button>
-      <button onClick={changeColor}>change color</button>
+      <button onClick={changeColor}>Change Color</button>
+      <button onClick={clearCanvas}>Clear</button>
       <canvas
         onMouseDown={startDrawing}
         onMouseUp={finishDrawing}
