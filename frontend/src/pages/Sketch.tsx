@@ -8,6 +8,7 @@ import {
   Add as AddIcon,
   Remove as RemoveIcon
 } from '@mui/icons-material'
+import { HexColorPicker } from 'react-colorful'
 
 enum BrushType {
   Pen,
@@ -19,6 +20,7 @@ export const Sketch: React.FC = () => {
   const [brushSize, setBrushSize] = useState(5)
   const [brushColor, setBrushColor] = useState('black')
   const [brushType, setBrushType] = useState<BrushType>(BrushType.Pen)
+  const [showColorPicker, setShowColorPicker] = useState(false)
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
@@ -120,12 +122,22 @@ export const Sketch: React.FC = () => {
     prepareCanvas()
   }, [])
 
+  useEffect(() => {
+    if (contextRef.current) {
+      contextRef.current.strokeStyle = brushColor
+    }
+  }, [brushColor])
+
   return (
     <Box>
       <Grid container spacing={2}>
         <Grid item xs={12} md={1}>
           <ButtonGroup orientation="vertical">
-            <Button onClick={changeColor}>
+            <Button
+              onClick={() => {
+                setShowColorPicker(!showColorPicker)
+              }}
+            >
               <ColorLensIcon />
             </Button>
             <Button
@@ -153,6 +165,10 @@ export const Sketch: React.FC = () => {
               <DeleteIcon />
             </Button>
           </ButtonGroup>
+          <Box sx={{ my: 2 }} />
+          {showColorPicker && (
+            <HexColorPicker color={brushColor} onChange={setBrushColor} />
+          )}
         </Grid>
         <Grid item xs={12} md={11}>
           <canvas
