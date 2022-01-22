@@ -8,14 +8,11 @@ export const Sketch: React.FC = () => {
   const prepareCanvas = () => {
     const canvas = canvasRef.current
     if (canvas) {
-      canvas.width = window.innerWidth * 2
-      canvas.height = window.innerHeight * 2
-      canvas.style.width = `${window.innerWidth}px`
-      canvas.style.height = `${window.innerHeight}px`
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
 
       const context = canvas.getContext('2d')
       if (context) {
-        context.scale(2, 2)
         context.lineCap = 'round'
         context.strokeStyle = 'black'
         context.lineWidth = 5
@@ -41,9 +38,7 @@ export const Sketch: React.FC = () => {
   }
 
   const draw = ({ nativeEvent }: { nativeEvent: any }) => {
-    if (!isDrawing) {
-      return
-    }
+    if (!isDrawing) return
     const { offsetX, offsetY } = nativeEvent
     if (contextRef.current) {
       contextRef.current.lineTo(offsetX, offsetY)
@@ -72,6 +67,7 @@ export const Sketch: React.FC = () => {
       onMouseUp={finishDrawing}
       onMouseMove={draw}
       ref={canvasRef}
+      style={{ border: '2px solid black' }}
     ></canvas>
   )
 }
