@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 export const Sketch: React.FC = () => {
   const [isDrawing, setIsDrawing] = useState(false)
   const [brushSize, setBrushSize] = useState(5)
-  const [brushColor, setBrushColor] = useState('#000000')
+  const [brushColor, setBrushColor] = useState('black')
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
@@ -76,12 +76,24 @@ export const Sketch: React.FC = () => {
     setBrushColor(newColor)
   }
 
+  const getBrush = () => {
+    if (contextRef.current) {
+      contextRef.current.strokeStyle = brushColor
+    }
+  }
+
+  const getEraser = () => {
+    if (contextRef.current) {
+      contextRef.current.strokeStyle = 'white'
+    }
+  }
+
   const clearCanvas = () => {
     const canvas = canvasRef.current
     if (canvas) {
       const context = canvas.getContext('2d')
       if (context) {
-        context.fillStyle = '#ffffff'
+        context.fillStyle = 'white'
         context.fillRect(0, 0, canvas.width, canvas.height)
       }
     }
@@ -96,6 +108,8 @@ export const Sketch: React.FC = () => {
       <button onClick={decreaseBrushSize}>-</button>
       <button onClick={increaseBrushSize}>+</button>
       <button onClick={changeColor}>Change Color</button>
+      <button onClick={getBrush}>Brush</button>
+      <button onClick={getEraser}>Eraser</button>
       <button onClick={clearCanvas}>Clear</button>
       <canvas
         onMouseDown={startDrawing}
