@@ -11,6 +11,9 @@ import {
 } from '@mui/material'
 import { Menu as MenuIcon } from '@mui/icons-material'
 
+const menuStyle = { textDecoration: 'none', color: 'black' }
+const logoStyle = { textDecoration: 'none', color: 'white' }
+
 export const Header: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -27,7 +30,9 @@ export const Header: React.FC = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-            <Link to="/">Dali</Link>
+            <Link style={logoStyle} to="/">
+              Dali
+            </Link>
           </Typography>
           <div>
             <IconButton size="large" onClick={handleMenu} color="inherit">
@@ -48,15 +53,15 @@ export const Header: React.FC = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>
-                <Link to="/sketch">Sketch</Link>
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <Link to="/design">Design</Link>
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <Link to="/icon-generator">Icon Generator</Link>
-              </MenuItem>
+              <Link style={menuStyle} to="/sketch">
+                <MenuItem onClick={handleClose}>Sketch</MenuItem>
+              </Link>
+              <Link style={menuStyle} to="/design">
+                <MenuItem onClick={handleClose}>Design</MenuItem>
+              </Link>
+              <Link style={menuStyle} to="/icon-generator">
+                <MenuItem onClick={handleClose}>Icon Generator</MenuItem>
+              </Link>
             </Menu>
           </div>
         </Toolbar>
