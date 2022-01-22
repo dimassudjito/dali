@@ -26,6 +26,9 @@ export const Sketch: React.FC = () => {
     if (contextRef.current) {
       contextRef.current.beginPath()
       contextRef.current.moveTo(offsetX, offsetY)
+      // allow dot creation
+      contextRef.current.lineTo(offsetX, offsetY)
+      contextRef.current.stroke()
     }
     setIsDrawing(true)
   }
