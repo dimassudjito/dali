@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { setConstantValue } from 'typescript'
 
 export const Sketch: React.FC = () => {
   const [isDrawing, setIsDrawing] = useState(false)
+  const [brushSize, setBrushSize] = useState(3)
+  const [brushColor, setBrushColor] = useState('#000000')
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
 
@@ -14,8 +18,8 @@ export const Sketch: React.FC = () => {
       const context = canvas.getContext('2d')
       if (context) {
         context.lineCap = 'round'
-        context.strokeStyle = 'black'
-        context.lineWidth = 5
+        context.strokeStyle = brushColor
+        context.lineWidth = brushSize
         contextRef.current = context
       }
     }
@@ -49,6 +53,30 @@ export const Sketch: React.FC = () => {
     }
   }
 
+  const decreaseBrushSize = () => {
+    const newBrushSize = brushSize - 1
+    if (contextRef.current) {
+      contextRef.current.lineWidth = newBrushSize
+    }
+    setBrushSize(newBrushSize)
+  }
+
+  const increaseBrushSize = () => {
+    const newBrushSize = brushSize + 1
+    if (contextRef.current) {
+      contextRef.current.lineWidth = brushSize
+    }
+    setBrushSize(newBrushSize)
+  }
+
+  const changeColor = () => {
+    const newColor = '#872538'
+    if (contextRef.current) {
+      contextRef.current.strokeStyle = newColor
+    }
+    setBrushColor(newColor)
+  }
+
   // const clearCanvas = () => {
   //   const canvas = canvasRef.current
   //   if (canvas) {
@@ -65,12 +93,17 @@ export const Sketch: React.FC = () => {
   }, [])
 
   return (
-    <canvas
-      onMouseDown={startDrawing}
-      onMouseUp={finishDrawing}
-      onMouseMove={draw}
-      ref={canvasRef}
-      style={{ border: '2px solid black' }}
-    ></canvas>
+    <div>
+      <button onClick={decreaseBrushSize}>-</button>
+      <button onClick={increaseBrushSize}>+</button>
+      <button onClick={changeColor}>change color</button>
+      <canvas
+        onMouseDown={startDrawing}
+        onMouseUp={finishDrawing}
+        onMouseMove={draw}
+        ref={canvasRef}
+        style={{ border: '2px solid black' }}
+      ></canvas>
+    </div>
   )
 }
