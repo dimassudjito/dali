@@ -15,10 +15,13 @@ enum BrushType {
   Eraser
 }
 
+const defaultBrushSize = 5
+const defaultBrushColor = 'black'
+
 export const Sketch: React.FC = () => {
   const [isDrawing, setIsDrawing] = useState(false)
-  const [brushSize, setBrushSize] = useState(5)
-  const [brushColor, setBrushColor] = useState('black')
+  const [brushSize, setBrushSize] = useState(defaultBrushSize)
+  const [brushColor, setBrushColor] = useState(defaultBrushColor)
   const [brushType, setBrushType] = useState<BrushType>(BrushType.Pen)
   const [showColorPicker, setShowColorPicker] = useState(false)
 
@@ -34,8 +37,8 @@ export const Sketch: React.FC = () => {
       const context = canvas.getContext('2d')
       if (context) {
         context.lineCap = 'round'
-        context.strokeStyle = brushColor
-        context.lineWidth = brushSize
+        context.lineWidth = defaultBrushSize
+        context.strokeStyle = defaultBrushColor
         contextRef.current = context
       }
     }
@@ -85,14 +88,6 @@ export const Sketch: React.FC = () => {
     setBrushSize(newBrushSize)
   }
 
-  const changeColor = () => {
-    const newColor = '#872538'
-    if (contextRef.current) {
-      contextRef.current.strokeStyle = newColor
-    }
-    setBrushColor(newColor)
-  }
-
   const getBrush = () => {
     setBrushType(BrushType.Pen)
     if (contextRef.current) {
@@ -123,6 +118,7 @@ export const Sketch: React.FC = () => {
   }, [])
 
   useEffect(() => {
+    // update brush color in canvas
     if (contextRef.current) {
       contextRef.current.strokeStyle = brushColor
     }
