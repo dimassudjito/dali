@@ -6,7 +6,8 @@ import {
   Backspace as BackspaceIcon,
   Delete as DeleteIcon,
   Add as AddIcon,
-  Remove as RemoveIcon
+  Remove as RemoveIcon,
+  Download as DownloadIcon
 } from '@mui/icons-material'
 import { HexColorPicker } from 'react-colorful'
 
@@ -113,6 +114,17 @@ export const Sketch: React.FC = () => {
     }
   }
 
+  const saveCanvas = () => {
+    if (canvasRef.current) {
+      // crate link to download the file
+      const link = document.createElement('a')
+      link.download = 'sketch.png'
+      // generate image link from canvas
+      link.href = canvasRef.current.toDataURL()
+      link.click()
+    }
+  }
+
   useEffect(() => {
     prepareCanvas()
   }, [])
@@ -160,6 +172,9 @@ export const Sketch: React.FC = () => {
             </Button>
             <Button onClick={clearCanvas}>
               <DeleteIcon />
+            </Button>
+            <Button onClick={saveCanvas}>
+              <DownloadIcon />
             </Button>
           </ButtonGroup>
           <Box sx={{ my: 2 }} />
