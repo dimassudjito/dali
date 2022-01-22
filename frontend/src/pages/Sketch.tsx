@@ -63,7 +63,7 @@ export const Sketch: React.FC = () => {
   const increaseBrushSize = () => {
     const newBrushSize = brushSize + 1
     if (contextRef.current) {
-      contextRef.current.lineWidth = brushSize
+      contextRef.current.lineWidth = newBrushSize
     }
     setBrushSize(newBrushSize)
   }
