@@ -137,7 +137,7 @@ export const Sketch: React.FC = () => {
   }, [brushColor])
 
   return (
-    <Box>
+    <Box sx={{ py: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={1}>
           <ButtonGroup orientation="vertical">
