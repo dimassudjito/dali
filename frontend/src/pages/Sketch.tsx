@@ -1,4 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Box, Grid, ButtonGroup, IconButton } from '@mui/material'
+import {
+  ColorLens as ColorLensIcon,
+  Brush as BrushIcon,
+  Backspace as BackspaceIcon,
+  Delete as DeleteIcon
+} from '@mui/icons-material'
 
 export const Sketch: React.FC = () => {
   const [isDrawing, setIsDrawing] = useState(false)
@@ -104,20 +111,36 @@ export const Sketch: React.FC = () => {
   }, [])
 
   return (
-    <div>
-      <button onClick={decreaseBrushSize}>-</button>
-      <button onClick={increaseBrushSize}>+</button>
-      <button onClick={changeColor}>Change Color</button>
-      <button onClick={getBrush}>Brush</button>
-      <button onClick={getEraser}>Eraser</button>
-      <button onClick={clearCanvas}>Clear</button>
-      <canvas
-        onMouseDown={startDrawing}
-        onMouseUp={finishDrawing}
-        onMouseMove={draw}
-        ref={canvasRef}
-        style={{ border: '2px solid black' }}
-      ></canvas>
-    </div>
+    <Box>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={1}>
+          <ButtonGroup orientation="vertical">
+            <IconButton onClick={changeColor}>
+              <ColorLensIcon />
+            </IconButton>
+            <IconButton onClick={getBrush}>
+              <BrushIcon />
+            </IconButton>
+            <IconButton onClick={getEraser}>
+              <BackspaceIcon />
+            </IconButton>
+            <IconButton onClick={clearCanvas}>
+              <DeleteIcon />
+            </IconButton>
+          </ButtonGroup>
+          <button onClick={decreaseBrushSize}>-</button>
+          <button onClick={increaseBrushSize}>+</button>
+        </Grid>
+        <Grid item xs={12} md={11}>
+          <canvas
+            onMouseDown={startDrawing}
+            onMouseUp={finishDrawing}
+            onMouseMove={draw}
+            ref={canvasRef}
+            style={{ border: '2px solid black' }}
+          ></canvas>
+        </Grid>
+      </Grid>
+    </Box>
   )
 }
