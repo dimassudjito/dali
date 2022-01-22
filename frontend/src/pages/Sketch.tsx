@@ -133,6 +133,7 @@ export const Sketch: React.FC = () => {
               onClick={() => {
                 setShowColorPicker(!showColorPicker)
               }}
+              variant={showColorPicker ? 'contained' : 'outlined'}
             >
               <ColorLensIcon />
             </Button>
