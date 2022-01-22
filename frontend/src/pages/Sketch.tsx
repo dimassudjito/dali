@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Box, Grid, ButtonGroup, IconButton } from '@mui/material'
+import { Box, Grid, ButtonGroup, Button } from '@mui/material'
 import {
   ColorLens as ColorLensIcon,
   Brush as BrushIcon,
   Backspace as BackspaceIcon,
-  Delete as DeleteIcon
+  Delete as DeleteIcon,
+  Add as AddIcon,
+  Remove as RemoveIcon
 } from '@mui/icons-material'
 
 export const Sketch: React.FC = () => {
@@ -115,21 +117,25 @@ export const Sketch: React.FC = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={1}>
           <ButtonGroup orientation="vertical">
-            <IconButton onClick={changeColor}>
+            <Button onClick={changeColor}>
               <ColorLensIcon />
-            </IconButton>
-            <IconButton onClick={getBrush}>
+            </Button>
+            <Button onClick={getBrush}>
               <BrushIcon />
-            </IconButton>
-            <IconButton onClick={getEraser}>
+            </Button>
+            <Button onClick={getEraser}>
               <BackspaceIcon />
-            </IconButton>
-            <IconButton onClick={clearCanvas}>
+            </Button>
+            <Button onClick={clearCanvas}>
               <DeleteIcon />
-            </IconButton>
+            </Button>
+            <Button onClick={increaseBrushSize}>
+              <AddIcon />
+            </Button>
+            <Button onClick={decreaseBrushSize}>
+              <RemoveIcon />
+            </Button>
           </ButtonGroup>
-          <button onClick={decreaseBrushSize}>-</button>
-          <button onClick={increaseBrushSize}>+</button>
         </Grid>
         <Grid item xs={12} md={11}>
           <canvas
