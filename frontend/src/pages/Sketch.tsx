@@ -9,10 +9,16 @@ import {
   Remove as RemoveIcon
 } from '@mui/icons-material'
 
+enum BrushType {
+  Pen,
+  Eraser
+}
+
 export const Sketch: React.FC = () => {
   const [isDrawing, setIsDrawing] = useState(false)
   const [brushSize, setBrushSize] = useState(5)
   const [brushColor, setBrushColor] = useState('black')
+  const [brushType, setBrushType] = useState<BrushType>(BrushType.Pen)
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
@@ -86,12 +92,14 @@ export const Sketch: React.FC = () => {
   }
 
   const getBrush = () => {
+    setBrushType(BrushType.Pen)
     if (contextRef.current) {
       contextRef.current.strokeStyle = brushColor
     }
   }
 
   const getEraser = () => {
+    setBrushType(BrushType.Eraser)
     if (contextRef.current) {
       contextRef.current.strokeStyle = 'white'
     }
@@ -120,20 +128,29 @@ export const Sketch: React.FC = () => {
             <Button onClick={changeColor}>
               <ColorLensIcon />
             </Button>
-            <Button onClick={getBrush}>
+            <Button
+              onClick={getBrush}
+              variant={brushType === BrushType.Pen ? 'contained' : 'outlined'}
+            >
               <BrushIcon />
             </Button>
-            <Button onClick={getEraser}>
+            <Button
+              onClick={getEraser}
+              variant={
+                brushType === BrushType.Eraser ? 'contained' : 'outlined'
+              }
+            >
               <BackspaceIcon />
-            </Button>
-            <Button onClick={clearCanvas}>
-              <DeleteIcon />
             </Button>
             <Button onClick={increaseBrushSize}>
               <AddIcon />
             </Button>
+            <Button>{brushSize}</Button>
             <Button onClick={decreaseBrushSize}>
               <RemoveIcon />
+            </Button>
+            <Button onClick={clearCanvas}>
+              <DeleteIcon />
             </Button>
           </ButtonGroup>
         </Grid>
