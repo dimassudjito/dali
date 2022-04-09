@@ -5,7 +5,7 @@ import { Download as DownloadIcon } from '@mui/icons-material'
 export const Notepad: React.FC = () => {
   const [text, setText] = useState('')
 
-  const svgRef = useRef(new Array(10))
+  const svgRef = useRef(new Array())
 
   let convertSvgToImage = () => {
     /**
@@ -67,7 +67,7 @@ export const Notepad: React.FC = () => {
               id="svg_ref"
               ref={(element) => {
                 if (svgRef) {
-                  svgRef.current.push(element)
+                  svgRef.current[i] = element
                 }
               }}
               xmlns="http://www.w3.org/2000/svg"
