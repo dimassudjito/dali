@@ -8,6 +8,9 @@ export const Notepad: React.FC = () => {
   const svgRef = useRef<SVGSVGElement | null>(null)
 
   let convertSvgToImage = () => {
+    /**
+     * @todo need to use base64 in the svg to download as svg
+     */
     const svg = svgRef.current
     if (svg) {
       let svgData = new XMLSerializer().serializeToString(svg)
@@ -28,7 +31,7 @@ export const Notepad: React.FC = () => {
           context.drawImage(img, 0, 0)
           const canvasdata = canvas.toDataURL('image/png')
           const a = document.createElement('a')
-          a.download = 'meme.png'
+          a.download = 'notepad.png'
           a.href = canvasdata
           document.body.appendChild(a)
           a.click()
@@ -65,11 +68,7 @@ export const Notepad: React.FC = () => {
             width="500"
             height="500"
           >
-            <image
-              href="https://freerangestock.com/sample/140315/dark-blue-dots-on-light-blue-background--abstract-background.jpg"
-              width="500"
-              height="500"
-            />
+            <image href="images/blue-bg.jpg" width="500" height="500" />
             <text x={250} y={250} dominantBaseline="middle" textAnchor="middle">
               Lorem ipsum dolor
             </text>
