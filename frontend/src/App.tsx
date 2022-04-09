@@ -1,24 +1,17 @@
 import React from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
-import { Dashboard, Sketch } from './pages'
+import { Dashboard, Sketch, Notepad } from './pages'
 import { Header } from './components/dashboard'
 
 const App: React.FC = () => {
   return (
     <div>
-      {/* <h1>Dali</h1>
-      <p>
-        <Link to="/">Dashboard</Link>
-      </p>
-      <p>
-        <Link to="/sketch">Sketch</Link>
-      </p> */}
       <Header />
-
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/sketch" element={<Sketch />} />
+        <Route path="/notepad" element={<Notepad />} />
       </Routes>
     </div>
   )

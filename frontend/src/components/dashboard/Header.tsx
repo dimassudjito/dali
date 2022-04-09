@@ -56,6 +56,9 @@ export const Header: React.FC = () => {
               <Link style={menuStyle} to="/sketch">
                 <MenuItem onClick={handleClose}>Sketch</MenuItem>
               </Link>
+              <Link style={menuStyle} to="/notepad">
+                <MenuItem onClick={handleClose}>Notepad</MenuItem>
+              </Link>
               <Link style={menuStyle} to="/design">
                 <MenuItem onClick={handleClose}>Design</MenuItem>
               </Link>
