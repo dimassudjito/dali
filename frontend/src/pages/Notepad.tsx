@@ -67,11 +67,13 @@ export const Notepad: React.FC = () => {
             xmlnsXlink="http://www.w3.org/1999/xlink"
             width="500"
             height="500"
+            style={{ backgroundColor: 'white' }}
           >
-            <image href="images/blue-bg.jpg" width="500" height="500" />
-            <text x={250} y={250} dominantBaseline="middle" textAnchor="middle">
-              Lorem ipsum dolor
-            </text>
+            {/* <image href="images/blue-bg.jpg" width="500" height="500" /> */}
+            <rect x="0" y="0" width="500" height="500" fill="wheat" />
+            <foreignObject x="50" y="50" width="400" height="400">
+              <p>{text}</p>
+            </foreignObject>
           </svg>
         </Grid>
       </Grid>
