@@ -1,11 +1,17 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Box, Grid, TextareaAutosize, Button } from '@mui/material'
 import { Download as DownloadIcon } from '@mui/icons-material'
 
 export const Notepad: React.FC = () => {
   const [text, setText] = useState('')
+  const [textList, setTextList] = useState<String[]>([])
 
   const svgRef = useRef(new Array())
+
+  useEffect(() => {
+    const paragraphs = text.split('\n\n')
+    setTextList(paragraphs)
+  }, [text])
 
   let convertSvgToImage = () => {
     /**
@@ -62,7 +68,7 @@ export const Notepad: React.FC = () => {
               <DownloadIcon />
             </Button>
           </Box>
-          {[0, 1].map((i) => (
+          {textList.map((text, i) => (
             <svg
               id="svg_ref"
               ref={(element) => {
