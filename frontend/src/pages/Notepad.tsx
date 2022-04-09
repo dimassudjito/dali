@@ -1,8 +1,41 @@
-import React, { useState } from 'react'
-import { Box, Grid, TextareaAutosize } from '@mui/material'
+import React, { useState, useRef } from 'react'
+import { Box, Grid, TextareaAutosize, Button } from '@mui/material'
+import { Download as DownloadIcon } from '@mui/icons-material'
 
 export const Notepad: React.FC = () => {
   const [text, setText] = useState('')
+
+  const svgRef = useRef<SVGSVGElement | null>(null)
+
+  let convertSvgToImage = () => {
+    const svg = svgRef.current
+    if (svg) {
+      let svgData = new XMLSerializer().serializeToString(svg)
+      const canvas = document.createElement('canvas')
+      canvas.setAttribute('id', 'canvas')
+      const svgSize = svg.getBoundingClientRect()
+      canvas.width = svgSize.width
+      canvas.height = svgSize.height
+      const img = document.createElement('img')
+      img.setAttribute(
+        'src',
+        'data:image/svg+xml;base64,' +
+          btoa(unescape(encodeURIComponent(svgData)))
+      )
+      img.onload = function () {
+        const context = canvas.getContext('2d')
+        if (context) {
+          context.drawImage(img, 0, 0)
+          const canvasdata = canvas.toDataURL('image/png')
+          const a = document.createElement('a')
+          a.download = 'meme.png'
+          a.href = canvasdata
+          document.body.appendChild(a)
+          a.click()
+        }
+      }
+    }
+  }
 
   return (
     <Box>
@@ -19,7 +52,28 @@ export const Notepad: React.FC = () => {
           />
         </Grid>
         <Grid item xs={6}>
-          photo area
+          <Box>
+            <Button onClick={convertSvgToImage}>
+              <DownloadIcon />
+            </Button>
+          </Box>
+          <svg
+            id="svg_ref"
+            ref={svgRef}
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            width="500"
+            height="500"
+          >
+            <image
+              href="https://freerangestock.com/sample/140315/dark-blue-dots-on-light-blue-background--abstract-background.jpg"
+              width="500"
+              height="500"
+            />
+            <text x={250} y={250} dominantBaseline="middle" textAnchor="middle">
+              Lorem ipsum dolor
+            </text>
+          </svg>
         </Grid>
       </Grid>
     </Box>
